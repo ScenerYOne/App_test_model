@@ -79,14 +79,14 @@ function App() {
     <div className="app-container">
       <div className="header">
         <div className="inner">
-          <h1 class="container" >Model Tester</h1>
+          <h1 >Model Tester</h1>
         </div>
       </div>
 
       <div className="main-content">
         {/* ซ้าย */}
         <div>
-          <h2 className="text-2xl font-light mb-8 text-gray-300">Upload & Run</h2>
+          <h2 className="font-light mb-8 text-gray-300">Upload & Run</h2>
 
           {/* อัปโหลด Model */}
           <div className="mb-8">
@@ -151,27 +151,55 @@ function App() {
                 {resultImage && (
                   <div className="result-card">
                     <div className="result-label">Output (Detection)</div>
-                    <img src={resultImage} alt="Output" className="rounded-lg shadow-xl" />
+                    <img src={resultImage} alt="Output" />
                   </div>
                 )}
               </div>
 
               {detections.length > 0 && (
-                <div className="stats-card mt-8">
+                <div className="stats-card">
+                  {/* หัวข้อ */}
                   <div className="stats-title">Detection Summary</div>
-                  {Object.entries(detections.reduce((acc, d) => {
-                    const name = classNames[d.cls] || `Class ${d.cls}`;
-                    acc[name] = (acc[name] || 0) + 1;
-                    return acc;
-                  }, {})).map(([name, count]) => (
-                    <div key={name} className="stat-item">
-                      <span className="class-name">{name}</span>
-                      <span className="confidence">{count} leafs</span>
+
+                  {/* รายการแต่ละคลาส */}
+                  {(() => {
+                    const total = detections.length;
+                    const summary = detections.reduce((acc, d) => {
+                      const name = classNames[d.cls] || `Class ${d.cls}`;
+                      acc[name] = (acc[name] || 0) + 1;
+                      return acc;
+                    }, {});
+
+                    return Object.entries(summary)
+                      .sort(([,a], [,b]) => b - a)
+                      .map(([name, count]) => {
+                        const percentage = ((count / total) * 100).toFixed(2);
+                        return (
+                          <div key={name} className="stat-item">
+                            <span className="class-name text-gray-200">{name}</span>
+                            <span className="text-cyan-400 font-medium">
+                              {count} objects · {percentage}%
+                            </span>
+                          </div>
+                        );
+                      });
+                  })()}
+
+                  {/* ส่วนล่าง: Total + Average Confidence */}
+                  <div className="mt-4">
+                    <div className="stat-item-no-border">
+                      <span className="text-gray-400 text-sm">Total Detections</span>
+                      <span className="text-xl font-bold text-white">{detections.length}</span>
                     </div>
-                  ))}
-                  <div className="stat-item font-bold text-green-400 mt-4 pt-4 border-t border-gray-700">
-                    <span>Total detections</span>
-                    <span>{detections.length} positions</span>
+
+                    <div className="stat-item-no-border">
+                      <span className="text-gray-400 text-sm">Model Avg Confidence</span>
+                      <span className="text-xl font-bold text-cyan-400">
+                        {detections.length > 0 
+                          ? (detections.reduce((sum, d) => sum + (d.conf || 0), 0) / detections.length * 100).toFixed(1)
+                          : 0}%
+                      </span>
+                    </div>
                   </div>
                 </div>
               )}
@@ -179,7 +207,7 @@ function App() {
           ) : (
             <div className="text-center text-gray-500 mt-20">
               <Brain className="w-24 h-24 mx-auto mb-4 opacity-20" />
-              <p>อัปโหลดโมเดลและภาพ </p>
+              <p>อัปโหลดโมเดลและภาพเพื่อเริ่มใช้งาน</p>
             </div>
           )}
         </div>

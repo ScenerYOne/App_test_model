@@ -1,80 +1,72 @@
-/* src/App.css - เวอร์ชันสองคอลัมน์ + ผลลัพธ์แม่นยำ */
-/* เพิ่มต่อจาก App.css เดิมของคุณ */
+/* src/App.css - Black Mode สุดเข้ม + รองรับเปอร์เซ็นต์ */
 
-.detection-canvas {
-  position: relative;
-  display: inline-block;
-  border-radius: 0.75rem;
-  overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-.detection-canvas img {
+html, body, #root {
   width: 100%;
-  height: auto;
-  display: block;
-}
-
-.bounding-box {
-  position: absolute;
-  border: 3px solid;
-  border-radius: 6px;
-  background: rgba(0, 0, 0, 0.3);
-  backdrop-filter: blur(2px);
-  font-weight: 600;
-  font-size: 0.9rem;
-  padding: 2px 8px;
+  height: 100%;
+  background-color: #000000;
   color: white;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.5);
+  overflow-x: hidden;
 }
-
-/* เพิ่มต่อท้าย App.css เดิม */
-
-.class-italian      { border-color: #00924b; } 
-.class-deertongue   { border-color: #ed9600; } 
-.class-greenlollo   { border-color: #84cc16; } 
-.class-rossa        { border-color: #ef4444; } 
-.class-redcoral     { border-color: #ec4899; } 
-.class-caramel      { border-color: #d97706; } 
-.class-empty        { border-color: #94a3b8; border-style: dashed; } 
 
 .app-container {
   min-height: 100vh;
-  background-color: #000;
-  color: white;
+  background-color: #000000;
   font-family: ui-sans-serif, system-ui, sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
+/* Header */
 .header {
   border-bottom: 1px solid #1f1f1f;
   padding: 1.5rem 0;
-  background-color: #000;
+  background-color: #000000;
+  text-align: center;
 }
 
 .header .inner {
-  max-width: 1280px;
+  max-width: 1600px;          
   margin: 0 auto;
-  padding: 0 2rem;
+  padding: 0 4rem;            
 }
 
 .header h1 {
   font-size: 2rem;
-  font-weight: 300;
+  font-weight: 500;  
+  color: #ffffff;
 }
 
+/* Main */
 .main-content {
-  max-width: 1400px;
+  flex: 1;
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 3rem 2rem;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4rem;
+  padding: 3rem 4rem;        
+  display: flex;
+  gap: 5rem;                  
+  width: 100%;
+  justify-content: center;   
+  align-items: flex-start;
+}
+
+.main-content > div:first-child {
+  flex: 0 0 360px;            
+  min-width: 360px;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
 }
 
 /* Upload Box */
 .upload-box {
-  height: 12rem;
-  background-color: #0f0f0f;
+  height: 10rem;
+  background-color: #000000;
   border: 2px dashed #333;
   border-radius: 0.75rem;
   display: flex;
@@ -87,21 +79,22 @@
 
 .upload-box:hover {
   border-color: #555;
-  background-color: #1a1a1a;
+  background-color: #0f0f0f;
 }
 
 .upload-text {
-  font-size: 1rem;
+  font-size: 0.95rem;
   color: #9ca3af;
   margin-top: 0.75rem;
-  font-weight: 500;
+  text-align: center;
+  padding: 0 1rem;
+  word-break: break-all;
 }
 
 /* Action Button */
 .action-btn {
-  height: 12rem;
+  height: 10rem;
   background: linear-gradient(to right, #3b82f6, #8b5cf6);
-  color: white;
   border-radius: 0.75rem;
   font-weight: 600;
   font-size: 1.125rem;
@@ -110,9 +103,9 @@
   align-items: center;
   justify-content: center;
   gap: 0.75rem;
-  transition: all 0.3s ease;
   cursor: pointer;
   box-shadow: 0 10px 25px rgba(59, 130, 246, 0.3);
+  transition: all 0.3s ease;
 }
 
 .action-btn:hover:not(:disabled) {
@@ -121,37 +114,40 @@
 }
 
 .action-btn:disabled {
-  background: #1f2937;
   opacity: 0.5;
   cursor: not-allowed;
-  transform: none;
 }
 
 /* Result Zone */
 .result-zone h3 {
-  font-size: 1.5rem;
+  font-size: 1.6rem;
   font-weight: 300;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
   color: #e5e7eb;
 }
 
 .result-images {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 2rem;
-  margin-bottom: 2rem;
+  gap: 2.5rem;
+  margin-bottom: 3rem;
 }
 
 .result-card {
-  background-color: #0f0f0f;
+  background-color: #000000;
   border: 1px solid #1f1f1f;
-  border-radius: 0.75rem;
+  border-radius: 1rem;
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .result-card img {
   width: 100%;
   height: auto;
+  max-height: 82vh;
+  object-fit: contain;
+  background: #000000;
   display: block;
 }
 
@@ -161,64 +157,90 @@
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: #6b7280;
-  font-weight: 600;
+  background-color: #000000;
+  border-top: 1px solid #1f1f1f;
 }
 
-/* Accuracy Stats */
+/* Stats Card - Detection Summary */
 .stats-card {
   background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
   border: 1px solid #334155;
   border-radius: 0.75rem;
   padding: 1.5rem;
+  margin-top: 2rem;
 }
 
 .stats-title {
   font-size: 1.125rem;
   font-weight: 600;
-  margin-bottom: 1rem;
   color: #60a5fa;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .stat-item {
   display: flex;
   justify-content: space-between;
-  padding: 0.75rem 0;
-  border-bottom: 1px solid #334155;
+  align-items: center;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid #656565;
+  transition: background 0.2s;
 }
 
-.stat-item:last-child {
+.stat-item:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+  border-radius: 0.5rem;
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+.stat-item:last-of-type {
   border-bottom: none;
 }
 
-.class-name {
+.stat-item-no-border {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.5rem;
+  padding: 0.9rem 0;
+  transition: background 0.2s;
 }
 
-.class-dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
+.stat-item-no-border:hover {
+  background-color: rgba(59, 130, 246, 0.08);
+  border-radius: 0.5rem;
+  margin: 0 -0.5rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
 }
 
-.class-car { background-color: #3b82f6; }
-.class-person { background-color: #10b981; }
-.class-dog { background-color: #f59e0b; }
-.class-cat { background-color: #ec4899; }
-
-.confidence {
+.stat-total {
+  margin-top: 1.5rem;
+  padding-top: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  font-size: 1.1rem;
   font-weight: 600;
-  color: #86efac;
 }
 
 /* Responsive */
-@media (max-width: 1024px) {
+@media (max-width: 1100px) {
   .main-content {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     gap: 3rem;
+  }
+  .main-content > div:first-child {
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
   }
   .result-images {
     grid-template-columns: 1fr;
+  }
+  .result-card img {
+    max-height: 75vh;
   }
 }
